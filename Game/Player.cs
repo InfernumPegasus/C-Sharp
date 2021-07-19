@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game
 {
@@ -22,12 +18,7 @@ namespace Game
             Defence = 5;
 
             Progress = new();
-        }
-
-        public void GetPlayerInfo()
-        {
-            EntityInfo();
-            Console.WriteLine("Макс. HP: " + MaxHealthPoint);
+            Abilities = new();
         }
 
         private static void CalculateLevelRequirements(LevelProgressing progress, bool isDelevel)
@@ -47,14 +38,10 @@ namespace Game
                 }
             }
             else
-            {
                 progress.ExperienceToNewLevel += NEW_LEVEL_EXP;
-            }
 
             if (progress.ExperienceToNewLevel < NEW_LEVEL_EXP)
-            {
                 progress.ExperienceToNewLevel = NEW_LEVEL_EXP;
-            }
         }
 
         public void AddExperience(int gainedExperience)
@@ -90,14 +77,7 @@ namespace Game
         // описание "прокачки"
         public LevelProgressing Progress { get; protected set; }
 
-        //public void ImportInitialParameteres(string name, int dmg, int hp, int maxHP, int def)
-        //{
-        //    Name = name;
-        //    Damage = dmg;
-        //    HealthPoint = hp;
-        //    MaxHealthPoint = maxHP;
-        //    Defence = def;
-        //}
+        public Abilities Abilities { get; protected set; }
 
     }
 }

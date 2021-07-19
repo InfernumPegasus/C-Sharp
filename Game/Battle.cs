@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace Game
 {
@@ -25,7 +20,11 @@ namespace Game
                 if (damage > DefenceEntity.Defence)
                 {
                     Console.WriteLine($"{AttackEntity.Name} наносит {Math.Abs(DefenceEntity.Defence - damage)} чистого ({damage}) урона {DefenceEntity.Name}!");
-                    DefenceEntity.HealthPoint = DefenceEntity.HealthPoint - damage + DefenceEntity.Defence;
+                    
+                    /*
+                     * Замена прямого изменения при помощи метода
+                     */
+                    DefenceEntity.GetHit(damage - DefenceEntity.Defence);
                 }
                 else
                     Console.WriteLine($"{AttackEntity.Name} не смог нанести вред {DefenceEntity.Name}!");
@@ -54,7 +53,8 @@ namespace Game
                 //AttackEntity.EntityInfo();
                 //Console.WriteLine();
                 //DefenceEntity.EntityInfo();
-                //Console.WriteLine();
+
+                //Thread.Sleep(1000);
 
                 Attack(AttackEntity, DefenceEntity);
                 Attack(DefenceEntity, AttackEntity);
