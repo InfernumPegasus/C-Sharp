@@ -43,21 +43,57 @@ namespace Game
         {
             int round = 1;
             Console.WriteLine($"Битва {AttackEntity.Name} и {DefenceEntity.Name}!\n");
+
+            AttackEntity.EntityInfo();
+            Console.WriteLine();
+            DefenceEntity.EntityInfo();
+            Console.WriteLine();
+            
             do
             {
-                /*
-                 * Конструкция для логирования.
-                 * При необходимости удалить.
-                 */
-                Console.WriteLine($"\nРаунд {round++}!\n");
-                //AttackEntity.EntityInfo();
-                //Console.WriteLine();
-                //DefenceEntity.EntityInfo();
+                // воссоздание выбора действия пользователем
+                Console.WriteLine("Выберите действие:");
+                Console.WriteLine("1 - Атаковать.");
+                Console.WriteLine("2 - Использовать умение.");
+                Console.WriteLine("3 - Убежать (недоступно (пока что))");
 
-                //Thread.Sleep(1000);
+                switch ( Console.ReadKey().Key )
+                {
+                    case ConsoleKey.D1:
+                        Console.Clear();
+                        Console.WriteLine($"Раунд {round++}!\n");
+                        Console.WriteLine();
+                        Console.WriteLine($"{AttackEntity.Name} обменивается ударами с {DefenceEntity.Name}.");
 
-                Attack(AttackEntity, DefenceEntity);
-                Attack(DefenceEntity, AttackEntity);
+                        Attack(AttackEntity, DefenceEntity);
+                        Attack(DefenceEntity, AttackEntity);
+
+                        Console.WriteLine();
+
+                        AttackEntity.EntityInfo();
+                        Console.WriteLine();
+                        DefenceEntity.EntityInfo();
+                        Console.WriteLine();
+
+                        break;
+
+                    case ConsoleKey.D2:
+                        Console.Clear();
+
+                        AttackEntity.ChooseBuff();
+                        AttackEntity.EntityInfo();
+                        Console.WriteLine();
+
+                        break;
+
+                    case ConsoleKey.D3:
+                        break;
+
+
+                    default:
+                        Console.Clear();
+                        break;
+                }
 
             } while (AttackEntity.HealthPoint > 0 && DefenceEntity.HealthPoint > 0);
 
@@ -69,14 +105,18 @@ namespace Game
 
         public static void MonsterBattle(ref Player player)
         {
-            Monster monster = Monster.GetRandomMonster();
+            var monster = Monster.GetMonster();
+            
+            //Monster monster = Monster.GetRandomMonster();
 
             var winner = EntitiesBattle(AttackEntity: player, DefenceEntity: monster);
 
             if ( winner.GetType() == player.GetType() )
             {
                 Console.WriteLine($"Вы получаете {monster.ExperienceByKill} опыта!\n");
+                Console.WriteLine($"Вы получаете {monster.Coins} монет!\n");
                 player.AddExperience(monster.ExperienceByKill);
+                player.GetCoins(monster.Coins);
             }
             else
             {

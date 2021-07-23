@@ -60,6 +60,7 @@ namespace Game
         {
             Player player = new();
 
+
             GameMenu(ref player);
 
         }

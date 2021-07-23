@@ -16,6 +16,7 @@ namespace Game
             HealthPoint = 50;
             MaxHealthPoint = 50;
             Defence = 5;
+            Coins = 20;
 
             Progress = new();
             Abilities = new();
@@ -67,7 +68,7 @@ namespace Game
         private void CalculateMaxHealthPoint(bool isDelevel)
         {
             if (isDelevel == true && Progress.CurrentLevel > 0)
-                MaxHealthPoint -= NEW_LEVEL_HP;   
+                MaxHealthPoint -= NEW_LEVEL_HP;
             else
                 MaxHealthPoint += NEW_LEVEL_HP;
 

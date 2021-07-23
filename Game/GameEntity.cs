@@ -12,16 +12,26 @@ namespace Game
         public int HealthPoint { get; protected set; }
         public int MaxHealthPoint { get; protected set; }
         public int Defence { get; protected set; }
-
+        public int Coins { get; protected set; }
         public void EntityInfo()
         {
             Console.WriteLine(Name + ":");
-            Console.WriteLine("Защита:   " + Defence);
-            Console.WriteLine("урон:     " + Damage);
-            Console.WriteLine("HP:       " + HealthPoint);
-            Console.WriteLine("Макс. HP: " + MaxHealthPoint);
+            Console.WriteLine("Защита: " + Defence);
+            Console.WriteLine("Урон:   " + Damage);
+            Console.WriteLine($"HP:    {HealthPoint}/{MaxHealthPoint}");
+            Console.WriteLine("Монеты: " + Coins);
         }
 
+        public void GetCoins(int coins)
+        {
+            if (coins <= 0)
+            {
+                Console.WriteLine("Некорректное значение!");
+                return;
+            }
+
+            Coins += coins;
+        }
         public void GetHit(int damage)
         {
             if (damage <= 0)
@@ -98,7 +108,8 @@ namespace Game
             Console.WriteLine("1 - Лечение на треть от максимального запаса жизни.");
             Console.WriteLine("2 - Получить +100% к защите.");
             Console.WriteLine("3 - Получить +100% к урону.");
-
+            Console.WriteLine();
+            Console.WriteLine("5 - Отмена.");
 
             switch ( Console.ReadKey().Key )
             {
@@ -116,7 +127,11 @@ namespace Game
                     Console.Clear();
                     IncreaseDamage();
                     break;
-                
+
+                case ConsoleKey.D5:
+                    Console.Clear();
+                    return;
+
                 default:
                     Console.Clear();
                     break;
